@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace ShowsConsoleApp
 {
-    internal class Series : IComparable
+    internal class Series: IComparable
     {
         public string name;
         public string genre;
         public int numberOfEps;
+        //public List <T> dataShow;
 
         public Series(string _name, string _genre, int _numberOfEps)
         {
@@ -25,7 +26,9 @@ namespace ShowsConsoleApp
 
         public int CompareTo(object obj)
         {
+            //Series <int> p = (Series<int>)obj;
             Series p = (Series)obj;
+
             if (this.numberOfEps < p.numberOfEps) return -1;
             if (this.numberOfEps > p.numberOfEps) return 1;
             return 0;
