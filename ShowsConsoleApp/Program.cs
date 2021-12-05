@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ShowsConsoleApp
+﻿namespace ShowsConsoleApp
 {
     class Program
     {
@@ -37,7 +35,8 @@ namespace ShowsConsoleApp
 
         static void ShowMenu()
         {
-
+            //try
+            //{
 
             Console.WriteLine("Welcome To Show Menu , please select :");
             Console.WriteLine("1.Add Series ");
@@ -45,33 +44,65 @@ namespace ShowsConsoleApp
             Console.WriteLine("3.Add an episode");
             Console.WriteLine("4.Show all Series existent");
             int userSelect = int.Parse(Console.ReadLine());
-
+            //}
+            //catch (FormatException)
+            //{
+            //    Console.WriteLine("ERRROROROOR");
+            //};
 
             switch (userSelect)
             {
                 case 1:
 
-                    Console.WriteLine("please enter detailes; name ,genre and numbers of  episode ");
-                    string nameToAdd = Console.ReadLine();
-                    string genreToAdd = Console.ReadLine();
-                    int numberOfEpsToAdd = int.Parse(Console.ReadLine());
-                    AddSeriesFunction(nameToAdd, genreToAdd, numberOfEpsToAdd);
+                    try
+                    {
+                        CaseOneTest();
+
+                    }
+                    catch (FormatException ex)
+                    {
+                        Console.WriteLine("value must be number");
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Error , Try Again");
+                    }
 
                     break;
 
                 case 2:
-                    Console.WriteLine("Please enter Show name:");
-                    string showName = Console.ReadLine();
-                    ShowSeriesInfoAndAllInfo(showName);
+                    try
+                    {
+                        CaseTwoTest();
+                    }
+                    catch (FormatException ex)
+                    {
+                        Console.WriteLine("value must be number, try again");
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Error , Try Again");
+                    }
                     break;
 
-                case 3:
 
+                case 3:
 
                     break;
 
                 case 4:
-                    ShowSeriesInfoAndAllInfo("SeriesThatAdd");
+                    try
+                    {
+                        ShowSeriesInfoAndAllInfo("SeriesThatAdd");
+                    }
+                    catch (FormatException ex)
+                    {
+                        Console.WriteLine("value must be number , try again");
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Error , Try Again");
+                    }
                     break;
 
                 default:
@@ -79,27 +110,45 @@ namespace ShowsConsoleApp
                     ShowMenu();
                     break;
             }
+            ShowMenu();
 
 
         }
 
 
 
+        static void CaseOneTest()
+        {
+            Console.WriteLine("please enter detailes; name ,genre and numbers of  episode ");
+            string nameToAdd = Console.ReadLine();
+            string genreToAdd = Console.ReadLine();
+            int numberOfEpsToAdd = int.Parse(Console.ReadLine());
+            AddSeriesFunction(nameToAdd, genreToAdd, numberOfEpsToAdd);
+        }
 
+        static void CaseTwoTest()
+        {
+            Console.WriteLine("Please enter Show name:");
+            string showName = Console.ReadLine();
+            ShowSeriesInfoAndAllInfo(showName);
+        }
         static void AddSeriesFunction(string name, string genre, int numberOfEps)
         {
-            try { 
-            Series addEvent = new Series(name, genre, numberOfEps);
-            FileStream fileStream = new FileStream(@$"C:\Users\edent\OneDrive\שולחן העבודה\טק קריירה\C#\02.12.2021\shows files\{name}", FileMode.Append);
-            using (StreamWriter writer = new StreamWriter(fileStream))
+            try
             {
-                writer.WriteLine($"•Name :{addEvent.name} , Genre :{addEvent.genre},  Number Of episode:{addEvent.numberOfEps}");
-                Console.WriteLine($"•Name :{addEvent.name} , Genre :{addEvent.genre},  Number Of episode:{addEvent.numberOfEps}");
-            }
+                Series addEvent = new Series(name, genre, numberOfEps);
+                FileStream fileStream = new FileStream(@$"C:\Users\edent\OneDrive\שולחן העבודה\טק קריירה\C#\02.12.2021\shows files\{name}", FileMode.Append);
+                using (StreamWriter writer = new StreamWriter(fileStream))
+                {
+                    writer.WriteLine($"•Name :{addEvent.name} , Genre :{addEvent.genre},  Number Of episode:{addEvent.numberOfEps}");
+                    Console.WriteLine($"•Name :{addEvent.name} , Genre :{addEvent.genre},  Number Of episode:{addEvent.numberOfEps}");
+                }
 
-            ShowInfo(addEvent);}
-            catch(FormatException) {
-                Console.WriteLine("ERRROROROOR");
+                ShowInfo(addEvent);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("ERRRORORO0OR");
             };
         }
 
